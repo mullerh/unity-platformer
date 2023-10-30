@@ -18,6 +18,7 @@ public class PlayerBehaviour : MonoBehaviour
     [HideInInspector] public PlayerControls playerControls; 
     [HideInInspector] public InputAction move;
     [HideInInspector] public InputAction jump;
+    [HideInInspector] public InputAction attack;
 
     [Header("Movement")]
     public Rigidbody2D rb;
@@ -41,6 +42,9 @@ public class PlayerBehaviour : MonoBehaviour
     public float wallJumpMinTime;
     public int slideSide;
 
+    [Header("Attacking")]
+    public PlayerAttack playerAttack;
+
 
     void Awake() {
         playerControls = new PlayerControls();
@@ -49,13 +53,19 @@ public class PlayerBehaviour : MonoBehaviour
     void OnEnable() {
         move = playerControls.Player.Move;
         move.Enable();
+
         jump = playerControls.Player.Jump;
         jump.Enable();
+
+        attack = playerControls.Player.Attack;
+        attack.performed += playerAttack.DoAttack;
+        attack.Enable();
     }
 
     void OnDisable() {
         move.Disable();
         jump.Disable();
+        attack.Disable();
     }
 
 

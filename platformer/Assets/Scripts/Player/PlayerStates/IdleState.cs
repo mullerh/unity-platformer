@@ -13,10 +13,12 @@ public class IdleState : PlayerBaseState
     }
 
     public override void UpdateState(PlayerBehaviour playerBehaviour) {
+        // switch to attack
         // switch to run
         if (playerBehaviour.move.ReadValue<Vector2>() != Vector2.zero) {
             playerBehaviour.SwitchState(playerBehaviour.RunState);
         }
+        // switch to jump
         if (playerBehaviour.jump.triggered) {
             playerBehaviour.SwitchState(playerBehaviour.JumpingState);
         }
